@@ -1,0 +1,25 @@
+{
+  "name": "playwright-testes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjmartins/playwright-testes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjmartins/playwright-testes/issues"
+  },
+  "homepage": "https://github.com/hjmartins/playwright-testes#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.24"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.3.0"
+  }
+}
