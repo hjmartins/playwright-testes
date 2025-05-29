@@ -1,17 +1,7 @@
 Feature: Homepage Functionality
 
-    Scenario: Verify Product Web Testing
-
-        Given User navigates to the Browserstack Homepage
-
-        When User clicks on Product Menu
-
-        Then It should show Web Testing Product
-
-    Scenario: Verify Pricing Product Lists
-
-        Given User Navigates to Browserstack Homepage
-
-        When User clicks on Pricing Menu
-
-        Then It should Display correct Product lists in left Nav
+  Scenario: Usuário faz login e vê a nova janela
+    Given que estou na página de login
+    When preencho o login e a senha
+    And clico no botão de login
+    Then vejo o conteúdo na nova janela

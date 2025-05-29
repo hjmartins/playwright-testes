@@ -1,69 +1,31 @@
-const { Given, When, Then, Before, After, setDefaultTimeout } = require("@cucumber/cucumber");
+const { Given, When, Then, setDefaultTimeout } = require('@cucumber/cucumber');
+const { firefox } = require('playwright');
+const { expect } = require('@playwright/test');
 
-const { chromium, expect } = require("@playwright/test");
-
-const { Page } = require("playwright");
-
-setDefaultTimeout(60 * 1000);
-
-let page, browser;
-
-Before(async function () {
-
-    browser = await chromium.launch({ headless: false });
-
-    const context = await browser.newContext();
-
-    page = await context.newPage();
-
+let browser, context, page, newPage;
+setDefaultTimeout(30 * 1000);
+Given('que estou na página de login', async function () {
+  browser = await firefox.launch({ headless: false });
+  context = await browser.newContext();
+  page = await context.newPage();
+  await page.goto('http://localhost/e-cidade/login.php');
 });
 
-Given("User navigates to the Browserstack Homepage", async () => {
-
-    await page.goto("https://www.browserstack.com/");
-
+When('preencho o login e a senha', async function () {
+  await page.fill('#usu_login', 'dbseller');
+  
 });
 
-When('User clicks on Product Menu', async function () {
-
-    await page.locator('button[aria-label="Products"]').waitFor();
-
-    await page.locator('button[aria-label="Products"]').click();
-
+When('clico no botão de login', async function () {
+  [newPage] = await Promise.all([
+    context.waitForEvent('page'),
+    page.click('#btnlogar')
+  ]);
+  await newPage.waitForLoadState();
 });
 
-Then('It should show Web Testing Product', async function () {
-
-    await page.locator('div[aria-label="Products"] button[title="Web Testing"]').waitFor();
-
-    expect(await page.locator('div[aria-label="Products"] button[title="Web Testing"] span').isVisible()).toBeTruthy()
-
+Then('vejo o conteúdo na nova janela', async function () {
+  const content = await newPage.textContent('body');
+  expect(content).toContain('Texto esperado');
+  await browser.close();
 });
-
-Given('User Navigates to Browserstack Homepage', async function () {
-
-    await page.goto("https://www.browserstack.com/");
-
-});
-
-When('User clicks on Pricing Menu', async function () {
-
-    await page.locator('a[title="Pricing"]').click();
-
-});
-
-Then('It should Display correct Product lists in left Nav', async function () {
-
-    var leftNavProducts = await page.locator('div[id="sidenav__list"]').textContent()
-
-    var productArray = await leftNavProducts.split("\n").map((item) => { return item.trim(); });
-
-    expect(productArray).toEqual(expect.arrayContaining(['Live', 'App Live']));
-
-});
-
-After(async function () {
-
-    await browser.close();
-
-})
