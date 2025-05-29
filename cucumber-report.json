@@ -15,11 +15,11 @@
             "line": 4,
             "name": "que estou na página de login",
             "match": {
-              "location": "tests\\steps\\homepage.step.js:7"
+              "location": "tests\\steps\\homepage.step.js:9"
             },
             "result": {
               "status": "passed",
-              "duration": 12769039300
+              "duration": 10304343000
             }
           },
           {
@@ -28,25 +28,24 @@
             "line": 5,
             "name": "preencho o login e a senha",
             "match": {
-              "location": "tests\\steps\\homepage.step.js:14"
+              "location": "tests\\steps\\homepage.step.js:16"
             },
             "result": {
               "status": "passed",
-              "duration": 235663899
+              "duration": 200491799
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "When ",
             "line": 6,
             "name": "clico no botão de login",
             "match": {
-              "location": "tests\\steps\\homepage.step.js:19"
+              "location": "tests\\steps\\homepage.step.js:22"
             },
             "result": {
-              "status": "failed",
-              "duration": 3185195999,
-              "error_message": "page.waitForLoadState: Target page, context or browser has been closed\n=========================== logs ===========================\n  \"networkidle\" event fired\n============================================================\n    at World.<anonymous> (C:\\Users\\hjmar\\Documents\\Vscode\\playwright-testes\\tests\\steps\\homepage.step.js:24:17)"
+              "status": "passed",
+              "duration": 8072717699
             }
           },
           {
@@ -55,11 +54,11 @@
             "line": 7,
             "name": "vejo o conteúdo na nova janela",
             "match": {
-              "location": "tests\\steps\\homepage.step.js:27"
+              "location": "tests\\steps\\homepage.step.js:34"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 6173263800
             }
           }
         ],

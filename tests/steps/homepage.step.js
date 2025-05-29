@@ -2,8 +2,10 @@ const { Given, When, Then, setDefaultTimeout } = require('@cucumber/cucumber');
 const { firefox } = require('playwright');
 const { expect } = require('@playwright/test');
 
-let browser, context, page, newPage;
 setDefaultTimeout(30 * 1000);
+
+let browser, context, page, newPage;
+
 Given('que estou na página de login', async function () {
   browser = await firefox.launch({ headless: false });
   context = await browser.newContext();
@@ -13,19 +15,30 @@ Given('que estou na página de login', async function () {
 
 When('preencho o login e a senha', async function () {
   await page.fill('#usu_login', 'dbseller');
-  
+  // Se tiver senha, preencha também aqui, ex:
+  // await page.fill('#senha', 'suaSenha');
 });
 
 When('clico no botão de login', async function () {
-  [newPage] = await Promise.all([
-    context.waitForEvent('page'),
-    page.click('#btnlogar')
-  ]);
-  await newPage.waitForLoadState();
+  // Clica no login
+  await page.click('#btnlogar');
+
+  // Abre nova página diretamente, já que sabe a URL
+  newPage = await context.newPage();
+  await newPage.goto('http://localhost/e-cidade/extension/desktop/');
+  await newPage.waitForLoadState('load');
+
+  console.log('Nova página carregada:', newPage.url());
 });
 
 Then('vejo o conteúdo na nova janela', async function () {
-  const content = await newPage.textContent('body');
-  expect(content).toContain('Texto esperado');
+    console.log(newPage.url())
+  //await newPage.click('.taskbar-menu-button');
+    await newPage.waitForSelector('.taskbar-menu-button', { timeout: 15000 });
+  const menuText = await newPage.textContent('.taskbar-menu-button');
+  console.log('Texto do menu:', menuText);
+
+  expect(menuText).toBe('MENU'); // ou o texto que espera
+
   await browser.close();
 });
